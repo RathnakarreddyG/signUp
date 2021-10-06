@@ -1,0 +1,19 @@
+@charset "ISO-8859-1";
+.required-field::after{ 
+  content: "*";
+  color: red;
+ 
+}
+*{
+	background-color: navy;
+}
+.option{
+	color: white;
+}
+.error{
+	color: red;
+}
+.invalid-feedback{
+	text-align:left;
+	
+}

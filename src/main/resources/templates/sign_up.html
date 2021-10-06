@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style color="black"></style>
+<link rel="stylesheet" type="text/css" href="astrich.css" />
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<style>
+.valid {
+	color: white;
+}
+</style>
+</head>
+<body>
+	<div class="center">
+		<div style="color: white" align="center">
+			<h1>Signup Here</h1>
+		</div>
+
+
+		<form th:action="@{/process}" onsubmit="return submitForm()"
+			th:object="${user}" method="post"
+			style="max-width: 600px; margin: 0 auto;" class="form">
+			<div class="m-3">
+				<div style="color: white" class="required-field">FirstName</div>
+
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<input type="text" data-type="firstName" onblur="validate(this)"
+							th:field="*{first_name}" class="form-control" />
+						<div class="valid" id="firstName-valid"></div>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('first_name')}"
+							th:errors="*{first_name}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">LastName:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<input type="text" data-type="lastName" onblur="validate(this)"
+							th:field="*{last_name}" class="form-control" />
+						<div class="valid" id="lastName-valid"></div>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('last_name')}"
+							th:errors="*{last_name}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">Role:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<select th:field="*{role}" class="form-control" required />
+						<option th:value="'Trainee'" th:text="Trainee"></option>
+						<option th:value="'Employee'" th:text="Employee"></option>
+						</select>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">DOB:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<input type="date" th:field="*{dob}" id="datepicker"
+							class="form-control" />
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">E-mail:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<input type="email" data-type="email" th:field="*{email}"
+							onblur="validate(this)" class="form-control" />
+						<div id="email-valid" style="color: white"></div>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">Mobile:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<input type="tel" data-type="phone_no" onblur="validate(this)"
+							th:field="*{phone_no}" class="form-control" />
+						<div class="valid" id="phone_no-valid"></div>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('phone_no')}" th:errors="*{phone_no}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">Address:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<input type="text" data-type="address" onblur="validate(this)" th:field="*{address}" class="form-control"
+							minlength="5" maxlength="100" />
+							<div class="valid" id="address-valid"></div>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">State:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<div style="color: white">
+
+							<label class="col-4 col-form-label"></label> 
+						 <select th:field="*{state}" 
+							 name="state_names" class="form-control" >
+							<option th:value="TS" th:text="Telangana"></option>
+							<option th:value="AP" th:text="AP"></option>
+							<option th:value="Gujarath" th:text="Gujarath"></option>
+							<option th:value="Maharastra" th:text="Maharastra">
+								</option>
+							<option th:value="Karnataka" th:text="Karnataka">
+							</option>
+						</select>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></div>
+					</div>
+					</div>
+				</div>
+
+				<br>
+				<div style="color: white" class="required-field">Gender:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<div style="color: white">
+							<label><input type="radio" name="gender" value="male"
+								th:field="*{gender}" id="male"> Male</label>
+							 <label><input type="radio"
+								name="gender" value="female" th:field="*{gender}" id="female" >
+							Female</label>
+
+						</div>
+						<div class="alert alert-warning"
+							th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">Languages
+					known:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<div style="color: white">
+
+							<label class="col-4 col-form-label"></label> 
+							<select
+								th:field="*{languages}" class="form-control">
+								<option th:value="'Hindi'" th:text="Hindi"></option>
+								<option th:value="'English'" th:text="English"></option>
+								<option th:value="'Telugu'" th:text="Telugu"></option>
+							</select>
+
+							<div class="alert alert-warning"
+								th:if="${#fields.hasErrors('languages')}"
+								th:errors="*{languages}"></div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div style="color: white" class="required-field">Profile
+					photo:</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label"></label>
+					<div class="col-8">
+						<input type="file" th:field="*{image}" class="form-control" />
+					</div>
+				</div>
+
+				<br>
+				<div id="finalResult" class="valid" style="display: none">Enter
+					valid data</div>
+				<button type="submit" class="btn btn-primary">Register</button>
+		</form>
+	</div>
+
+	<script>
+	const validList = {firstName: false, lastName: false, phone_no: false, email: false, address: false};
+	const de = (id) => document.getElementById(id);
+	de("female").checked = true
+	function displayError(cE, eleId, message, borderColor) {
+		de(eleId).innerHTML = message;
+		cE.style.border = borderColor;
+	}
+	function validate (ele){
+		
+		
+		let eleType = ele.getAttribute("data-type")
+		if(["firstName", "lastName","address"].includes(eleType)){
+			if(ele.value === ""){
+				displayError(ele, eleType+"-valid", "Enter Valid "+ eleType, "1.5px solid red")	
+				validList[eleType] = false;
+			}else{
+				displayError(ele, eleType+"-valid", "", "1px solid black")
+				validList[eleType] = true;
+			}
+		}
+		if(eleType === "phone_no"){
+			if(ele.value.match(/[0-9]{0,10}/)[0] !== "" && ele.value.length === 10 && ele.value[0].match(/[6-9]{0,1}/)[0] !== ""){
+				displayError(ele, eleType+"-valid", "", "1px solid black")
+				validList[eleType] = true;
+			}else{
+				displayError(ele, eleType+"-valid", "Enter Valid "+ eleType, "1.5px solid red")	
+				validList[eleType] = false;
+			}
+			
+		}
+		if(eleType === "email"){
+			if(!ele.value.match(/^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/)){
+			document.getElementById("email-valid").innerHTML = "Enter Valid Email";
+			ele.style.border = "1px solid red";
+			validList[eleType] = false;
+			}
+			else{
+			document.getElementById("email-valid").innerHTML = "";
+			ele.style.border = "1px solid black";
+			validList[eleType] = true;
+		} 
+	}
+	}
+	
+	function submitForm(){
+		let isValid= true;
+		for(let v in validList){
+			if(!validList[v]) {
+				isValid = false;
+			}
+			
+		}
+		if(!isValid){
+			de("finalResult").style.display = "block";
+		}
+		return isValid;
+	}
+	</script>
+</body>
+</html>
